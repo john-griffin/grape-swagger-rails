@@ -8,7 +8,7 @@
     <script type="text/javascript">
 	$(function () {
     window.swaggerUi = new SwaggerUi({
-      discoveryUrl: "<%= GrapeSwaggerRails.discoveryUrl %>",
+      url: "<%= GrapeSwaggerRails.discoveryUrl %>",
       apiKey: "<%= GrapeSwaggerRails.apiKey %>",
       dom_id:"swagger-ui-container",
       supportHeaderParams: true,
@@ -31,6 +31,14 @@
       docExpansion: "none"
     });
 
+    $('#input_apiKey').change(function() {
+      var key = $('#input_apiKey')[0].value;
+      console.log("key: " + key);
+      if(key && key.trim() != "") {
+        console.log("added key " + key);
+        window.authorizations.add("key", new ApiKeyAuthorization("api_key", key, "query"));
+      }
+    });
     window.swaggerUi.load();
   });
 
